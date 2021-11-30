@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1 style="text-align: center;">Đơn hàng</h1>
+    <form action="">
+      <label for="">Tên khách hàng</label>
+      <input type="text" class="name" required /> <br />
+      <label for="">Số điện thoại</label>
+      <input type="text" class="number" required />
+    </form>
+    <table border="1" id="bill"></table>
+    <button id="buy">Đặt mua</button>
+
+    <script>
+      const name = document.querySelector(".name");
+      const number = document.querySelector(".number");
+      let billList = [
+        { stt: 1, name: "Bánh ngọt phô mai", price: 100000, amount: 1 },
+        { stt: 2, name: "Sukem phô mai", price: 30000, amount: 1 },
+        { stt: 3, name: "Trà sữa", price: 40000, amount: 1 }
+      ];
+
+      function showBill(data) {
+        const topRow = `<tr>
+        <td>STT</td>
+        <td>Tên Sản phẩm</td>
+        <td>đơn giá</td>
+        <td>số lượng</td>
+        <td>thành tiền</td>
+      </tr>`;
+        const botRow = `<tr>
+        <td colspan = '4'>tổng tiền</td>
+        <td class = 'tongtien'></td>
+
+      </tr>`;
+        const result = data
+          .map((item) => {
+            return `
+               <tr>
+                 <td>${item.stt}</td>
+                 <td>${item.name}</td>
+                 <td>${item.price}</td>
+                 <td><input type="text" class="amount" value=${
+                   item.amount
+                 } /></td>
+                 <td>${item.price * item.amount}</td>
+               </tr>
+           `;
+          })
+          .join("");
+        document.getElementById("bill").innerHTML = topRow + result + botRow;
+        checkGia();
+      }
+      const checkAmount = (value) => value % 1 == 0 && value > 0;
+
+      function checkGia() {
+        const amounts = document.querySelectorAll(".amount");
+        if (amounts) {
+          for (let [i, amount] of amounts.entries()) {
+            amount.addEventListener("change", function () {
+              if (checkAmount(+amount.value)) billList[i].amount = amount.value;
+              else {
+                alert("số lượng phải là số nguyên dương");
+                billList[i].amount = Math.round(Math.abs(amount.value));
+              }
+              showBill(billList);
+              tongTien(billList);
+            });
+          }
+        }
+      }
+      function tongTien(data) {
+        const result = data.reduce((a, b) => a + b.price * b.amount, 0);
+        document.querySelector(".tongtien").innerHTML = result;
+      }
+
+      function checkField() {
+        return name.value == "" || number.value == "";
+      }
+      function checkNumber() {
+        return number.value.length === 10 && isNaN(number.value) == false;
+      }
+
+      function datMua() {
+        const buy = document.getElementById("buy");
+        if (buy) {
+          buy.addEventListener("click", function () {
+            if (name) {
+              if (number) {
+                if (checkField()) {
+                  alert("bạn phải nhập cả tên và số điện thoại");
+                } else {
+                  if (!checkNumber()) {
+                    alert("số điện thoại phải là số và có 10 ký tự");
+                  } else {
+                    console.log(name.value);
+                    console.log(number.value);
+                  }
+                }
+              }
+            }
+          });
+        }
+      }
+
+      datMua();
+      showBill(billList);
+      checkGia();
+      //tongTien(billList);
+    </script>
+  </body>
+</html>
