@@ -2,24 +2,49 @@ var slideIndex = 0;
 var isStart = true;
 slideShows();
 nextSlide();
-startSlide();
-stopSlide();
+//startSlide();
+//stopSlide();
 preSlide();
 function slideShows() {
-    if (isStart) {
+    {
         let slides = document.getElementsByClassName("slides"); 
         for (i = 0; i < slides.length; i++) {
-          slides[i].style.display = "none";
+        slides[i].style.display = "none";
         }
         if (slideIndex > slides.length - 1) slideIndex = 0;
         slides[slideIndex].style.display = "block";
+        console.log(slideIndex);
         slideIndex++;
-        console.log("a");
-        // tăng index sau khi tắt display hết n ảnh và gán = 0 khi = n
-        setInterval(slideShows,2000);
     }
+    let autoshow = setInterval(() => {
+        if (isStart) {
+            let slides = document.getElementsByClassName("slides"); 
+            for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+            }
+            if (slideIndex > slides.length - 1) slideIndex = 0;
+            slides[slideIndex].style.display = "block";
+            console.log(slideIndex);
+            slideIndex++;
+        }
+        console.log("second")
+    }, 1000)
+    // tăng index sau khi tắt display hết n ảnh và gán = 0 khi = n
+    let buttonStop = document.getElementById("stop");
+    if (buttonStop) {
+        buttonStop.addEventListener("click", () => {
+            isStart = false;
+        })
+    }
+    let buttonStart = document.getElementById("start");
+    if (buttonStart) {
+        buttonStart.addEventListener("click", () => {
+            isStart = true;
+        })
+    }
+    
 }
-function stopSlide() {
+/* function stopSlide() {
     let button = document.getElementById("stop");
     if (button) {
         button.addEventListener("click", () => {
@@ -30,19 +55,18 @@ function stopSlide() {
             }
         })
     }
-}
-function startSlide() {
+} */
+/* function startSlide() {
     let button = document.getElementById("start");
     if (button) {
         button.addEventListener("click", () => {
             if (!isStart) {
                 isStart = true;
                 console.log("start");
-                slideShows();
             }
         })
     }
-}
+} */
 function nextSlide() {
     let button = document.getElementById("next");
     if (button) {
@@ -56,7 +80,7 @@ function nextSlide() {
                 if (slideIndex > slides.length - 1) slideIndex = 0;
                 slides[slideIndex].style.display = "block";
             } else {
-                clearTimeout()
+                clearInterval()
                 slideIndex++;
                 let slides = document.getElementsByClassName("slides"); 
                 for (i = 0; i < slides.length; i++) {
