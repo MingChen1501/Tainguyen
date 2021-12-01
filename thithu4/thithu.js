@@ -1,6 +1,7 @@
 var slideIndex = 0;
 var isStart = true;
 loadShow();
+stop();
 start();
 slideShows();
 nextSlide();
@@ -18,24 +19,31 @@ function loadShow() {
 function slideShows() {
     let autoshow = setInterval(() => {
         {
-            slideIndex++;
-            let slides = document.getElementsByClassName("slides"); 
-            for (i = 0; i < slides.length; i++) {
-            slides[i].style.display = "none";
+            if (!isStart) {
+                clearInterval(autoshow);
+                //break
+            } else {
+                slideIndex++;
+                let slides = document.getElementsByClassName("slides"); 
+                for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+                }
+                if (slideIndex > slides.length - 1) slideIndex = 0;
+                slides[slideIndex].style.display = "block";
+                console.log(slideIndex);
             }
-            if (slideIndex > slides.length - 1) slideIndex = 0;
-            slides[slideIndex].style.display = "block";
-            console.log(slideIndex);
         }
         console.log("second")
-    }, 5000);
+    }, 10000);
+}
+function stop() {
     let buttonStop = document.getElementById("stop")
     if (buttonStop) {
         buttonStop.addEventListener("click", () => {
-            clearInterval(autoshow);
-            isStart = false;
-            console.log("stop")
-            //chưa tối ưu
+            if (isStart) {
+                isStart = false;
+                console.log("stop")
+            }
         })
     }
 }
@@ -58,7 +66,7 @@ function nextSlide() {
     if (button) {
         button.addEventListener("click", () => {
             //if (isStart)
-
+            stop();
             slideIndex++;
             let slides = document.getElementsByClassName("slides"); 
             for (i = 0; i < slides.length; i++) {
@@ -67,6 +75,7 @@ function nextSlide() {
             if (slideIndex > slides.length - 1) slideIndex = 0;
             slides[slideIndex].style.display = "block";
             console.log(slideIndex)
+            start();
         })
     }
 }
@@ -75,7 +84,7 @@ function preSlide() {
     let button = document.getElementById("pre");
     if (button) {
         button.addEventListener("click", () => {
-            
+            stop();
             slideIndex--;
             let slides = document.getElementsByClassName("slides"); 
             for (i = 0; i < slides.length; i++) {
@@ -84,6 +93,7 @@ function preSlide() {
             if (slideIndex < 0) slideIndex = slides.length - 1;
             slides[slideIndex].style.display = "block";
             console.log(slideIndex);
+            start();
         })
     }
 }
