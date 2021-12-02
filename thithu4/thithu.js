@@ -33,8 +33,8 @@ function slideShows() {
                 console.log(slideIndex);
             }
         }
-        console.log("second")
-    }, 10000);
+        console.log("abc"+ autoshow);
+    }, 1000);
 }
 function stop() {
     let buttonStop = document.getElementById("stop")
@@ -65,8 +65,6 @@ function nextSlide() {
     let button = document.getElementById("next");
     if (button) {
         button.addEventListener("click", () => {
-            //if (isStart)
-            stop();
             slideIndex++;
             let slides = document.getElementsByClassName("slides"); 
             for (i = 0; i < slides.length; i++) {
@@ -75,7 +73,6 @@ function nextSlide() {
             if (slideIndex > slides.length - 1) slideIndex = 0;
             slides[slideIndex].style.display = "block";
             console.log(slideIndex)
-            start();
         })
     }
 }
@@ -84,7 +81,6 @@ function preSlide() {
     let button = document.getElementById("pre");
     if (button) {
         button.addEventListener("click", () => {
-            stop();
             slideIndex--;
             let slides = document.getElementsByClassName("slides"); 
             for (i = 0; i < slides.length; i++) {
@@ -93,7 +89,6 @@ function preSlide() {
             if (slideIndex < 0) slideIndex = slides.length - 1;
             slides[slideIndex].style.display = "block";
             console.log(slideIndex);
-            start();
         })
     }
 }

@@ -13,11 +13,14 @@
 </head>
 <body>
     <div>
+        <img src="0.png" alt="" class="slides">
         <img src="1.png" alt="" class="slides">
         <img src="2.png" alt="" class="slides">
         <img src="3.png" alt="" class="slides">
         <img src="4.png" alt="" class="slides">
         <img src="5.png" alt="" class="slides">
+        <img src="6.png" alt="" class="slides">
+        <img src="7.png" alt="" class="slides">
         <br>
         <tr>
             <td>
@@ -34,6 +37,58 @@
             </td>
         </tr>
     </div>
+    <hr>
+    <table id="changePass">
+        <h2 style="color: red">ĐỔI MẬT KHẨU</h2>
+        <tr>
+            <td>
+                <label>tên đăng nhập</label>
+            </td>
+            <td>
+                <input type="text" id="userName">
+            </td>
+            <td>
+                <div id="errorUserName"></div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Mật khẩu cũ</label>
+            </td>
+            <td>
+                <input type="password" id="oldPasswords">
+            </td>
+            <td>
+                <div id="errorOldPasswords"></div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Mật khẩu mới</label>
+            </td>
+            <td>
+                <input type="password" id="newPasswords">
+            </td>
+            <td>
+                <div id="errorNewPasswords"></div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label>Xác nhận mật khẩu cũ</label>
+            </td>
+            <td>
+                <input type="password" id="confirmNewPasswords">
+            </td>
+            <td>
+                <div id="errorConfirmNewPasswords"></div>
+            </td>
+        </tr>
+        <tr>
+            <button id="submit" onclick="checkError();">submit</button>
+        </tr>
+    </table>
     <script src="thithu.js"></script>
+    <script src="thithu2.js"></script>
 </body>
 </html>
